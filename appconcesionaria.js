@@ -62,33 +62,17 @@ autosNuevos: function(){
     },
 
     puedeComprar : function( unAuto, unaPersona){
-
-        listaAutos = this.autosParaLaVenta();
-              console.log (listaAutos);
-      if(listaAutos == unAuto){
-          let valorCuota = unAuto.precio / unAuto.cuotas;
-          
-      }
-
-           
-  
-  
-  
-  
-  
+        if (unaPersona.capacidadDePagoTotal >= unAuto.precio && unaPersona.capacidadDePagoEnCuotas > (unAuto.precio / unAuto.cuotas)){
+           return true;
+        } else {
+    
+           return false;
+        }
+    
+    
      }
-
-
-
-
   }
 
-
-
-
-
-
-
-  console.log (concesionaria.puedeComprar(autos,personas));
+   console.log (concesionaria.puedeComprar(autos,personas));
 
 
