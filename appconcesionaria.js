@@ -68,9 +68,20 @@ autosNuevos: function(){
       }
      },
 
-     autosQuePuedeComprar: function (unaPersona){
-      return this.autosParaLaVenta().filter(auto => this.puedeComprar(auto,unaPersona));
-   }
+   //   autosQuePuedeComprar: function (unaPersona){
+   //    return this.autosParaLaVenta().filter(auto => this.puedeComprar(auto,unaPersona));
+   // },
+
+   autosQuePuedeComprar: function (personas){
+     
+      let listaVender = concesionaria.autosParaLaVenta().filter(function(unAuto){
+           if(  concesionaria.puedeComprar(unAuto,personas) == true){
+
+            return unAuto;
+           }
+      })
+         return listaVender;
+  }
 
 
 }
