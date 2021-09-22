@@ -61,18 +61,32 @@ autosNuevos: function(){
         }    
     },
 
-    puedeComprar : function( unAuto, unaPersona){
-        if (unaPersona.capacidadDePagoTotal >= unAuto.precio && unaPersona.capacidadDePagoEnCuotas > (unAuto.precio / unAuto.cuotas)){
+    puedeComprar: function(unAuto, unaPersona){
+       
+ if (unaPersona.capacidadDePagoTotal >= unAuto.precio && unaPersona.capacidadDePagoEnCuotas > (unAuto.precio / unAuto.cuotas)){
            return true;
         } else {
     
            return false;
         }
-    
-    
-     }
-  }
+     },
 
-   console.log (concesionaria.puedeComprar(autos,personas));
+     autosQuePuedeComprar: function (personas){
+
+      let listaPuedeComprar = this.autosParaLaVenta();
+      let comprar = this.puedeComprar();
+     
+      let listaVender = listaPuedeComprar.filter(function(unAuto){
+           if( comprar(unAuto,personas) == true){
+
+            return unAuto;
+           }
+      })
+         return listaVender;
+  }
+}
+let unPersonaMas ={nombre: "Juan", capacidadDePagoTotal:100000, capacidadDePagoEnCuotas:20000};
+
+   console.log (concesionaria.puedeComprar(unPersonaMas));
 
 
