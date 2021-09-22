@@ -2,31 +2,30 @@ let autos = require ("./listaAutos")
 let personas = require ("./personas")
 
 let concesionaria = {
-   autos: autos,
+   autos : autos,
  
-  buscarAuto: function (unaPatente){
-      for ( let i = 0; i < this.autos.length; i++){
-if (unaPatente == this.autos[i].patente){
-return this.autos[i];
-}
-}
+  buscarAuto: function(unaPatente){
+      for ( let i = 0; i < autos.length; i++){
+if (unaPatente == autos[i].patente){
+return autos[i];
+}}
     return null; 
 },
 
-   venderAuto: function  (unaPatente){
+   venderAuto: function(unaPatente){
       let unAuto = this.buscarAuto (unaPatente);
          return unAuto.vendido = true;
        },
 
    autosParaLaVenta: function (){
-      let paraVender = autos.filter (function (auto){
+      let paraVender = concesionaria.autos.filter (function (auto){
          return auto.vendido == false;
       });
       return paraVender;
    },
    
 autosNuevos: function(){
-        let enVenta = this.autosParaLaVenta();
+        let enVenta = concesionaria.autosParaLaVenta();
         let ceroKm = enVenta.filter(function(enVenta){
             return enVenta.km < 100;
         });
@@ -62,31 +61,21 @@ autosNuevos: function(){
     },
 
     puedeComprar: function(unAuto, unaPersona){
-       
- if (unaPersona.capacidadDePagoTotal >= unAuto.precio && unaPersona.capacidadDePagoEnCuotas > (unAuto.precio / unAuto.cuotas)){
-           return true;
-        } else {
-    
-           return false;
-        }
+      if (unaPersona.capacidadDePagoEnCuotas >= (unAuto.precio/unAuto.cuotas) && unaPersona.capacidadDePagoTotal >= unAuto.precio){
+         return true
+      } else{
+         return false
+      }
      },
 
-     autosQuePuedeComprar: function (personas){
+     autosQuePuedeComprar: function (unaPersona){
+      return this.autosParaLaVenta().filter(auto => this.puedeComprar(auto,unaPersona));
+   }
 
-      let listaPuedeComprar = this.autosParaLaVenta();
-      let comprar = this.puedeComprar();
-     
-      let listaVender = listaPuedeComprar.filter(function(unAuto){
-           if( comprar(unAuto,personas) == true){
 
-            return unAuto;
-           }
-      })
-         return listaVender;
-  }
 }
 let unPersonaMas ={nombre: "Juan", capacidadDePagoTotal:100000, capacidadDePagoEnCuotas:20000};
 
-   console.log (concesionaria.puedeComprar(unPersonaMas));
+   console.log (concesionaria.autosQuePuedeComprar(unPersonaMas));
 
 

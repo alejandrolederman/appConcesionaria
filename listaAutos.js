@@ -2,7 +2,7 @@ let  autos =[
     {
    marca: "Ford ",
    modelo: "Fiesta",
-   precio: 100000,
+   precio: 150000,
    km: 200 ,
    color: " Azul",
    cuotas: 12,
@@ -20,8 +20,8 @@ let  autos =[
    cuotas: 14,
    anio: 2019,
    patente: "JJK116",
-   vendido: true ,
-} ,
+   vendido: false ,
+} 
 
 ]
 
